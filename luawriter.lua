@@ -26,36 +26,36 @@ local TABLE = "table"
 local STDNAME = "entity"
 
 --Actually the JSON table if one was read from file.
-local jsonstr
+local jsstr
 --Lua code to write to file
 local luastr
 
 --Used for recursion purposes
 local processed_keystrs = {}
 
-function read(filepath)
+function read('script.js')
 	--[[
 	Pulls a JSON file into memory as a table using luajson
 
 	:param string filepath: path to file to convert
 	]]--
-	local json = require('json')
-	local file = io.open(filepath)
+	local json = require('js')
+	local file = io.open('script.js')
 	if not file then
-		error("This file does not exist: "..filepath)
+		error("This file does not exist: "..script.js)
 	end
 	local todecode = file:read "*a"
 	file:close()
-	jsonstr = json.decode(todecode)
+	jsstr = js.decode(todecode)
 end
 
 function write(filepath)
 	--[[
 	Write result to an output file.
 
-	:param string filepath: path to output file
+	:param string script.js: path to output file
 	]]--
-	local file = io.open(filepath, 'w')
+	local file = io.open('script.js', 'w')
 	if not file then
 		error("Can't write to "..data.path)
 	end
