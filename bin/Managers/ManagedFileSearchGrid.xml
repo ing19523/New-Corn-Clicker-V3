@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Definitions>
+	<!---
+		This definition displays the contents and characteristics of a list of {@link cmc/attachment/ManagedFile ManagedFiles}, and {@link cmc/attachment/InheritedManagedFile InheritedManagedFiles}.
+	-->
+	<ObjectGrid definitionName="cmc/attachment/ManagedFileSearchGrid" preferenceKey="attManagedFileSearchGrid">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<GridIconTypeImage editable="false" name="type" propertyName="" required="true" text="${attachmentResources.managedFile_typeIcon}" visible="true" width="60"/>
+		<GridStoreName name="store" propertyName="objectStoreId" text="${attachmentResources.store}" width="125"/>
+		<GridText editable="false" name="uniqueID" propertyName="managedFileId" text="${attachmentResources.uniqueId}" visible="false" width="90"/>
+		<GridText editable="false" name="managedFileName" propertyName="fileName" required="true" text="${attachmentResources.managedFile_fileName}" visible="true" width="230"/>
+		<GridText editable="false" name="managedFilePath" propertyName="path" required="true" text="${attachmentResources.managedFile_filePath}" visible="true" width="457"/>
+		<GridKilobytes name="fileSize" propertyName="fileSize" text="${attachmentResources.managedFile_fileSize}" width="60"/>
+		<GridText editable="false" name="managedFilemimeType" propertyName="mimeType" text="${attachmentResources.attachmentAsset_mimeType}" visible="false" width="90"/>
+	</ObjectGrid>
+</Definitions>

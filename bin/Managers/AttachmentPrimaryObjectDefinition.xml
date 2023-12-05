@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Definitions>
+	<PrimaryObjectDefinition browseFilterType="ManagedContentsFilter" creatable="false" definitionName="cmc/attachment/BaseAttachmentPrimaryObjectDefinition" displayName="${attachmentResources.attachmentObjectName}" displayNameProperty="identifier" helpLink="tasks/tttcreateattachment.htm" idProperty="attachmentId" isBaseDefinition="true" newDisplayName="${attachmentResources.attachment_NewAttachmentDisplayName}" newObjectMenuItemText="${attachmentResources.contextMenuNewAttachment}" objectGroups="AttachmentGroup" propertiesDefinition="cmc/attachment/AttachmentProperties" searchType="FindAttachments" writeUsage="IBM_ManageAttachmentTool">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<!--- The unique identifier for the attachment.-->
+		<PropertyDefinition displayName="${attachmentResources.attachment_identifier}" maximumSize="128" propertyName="identifier" type="string"/>
+		<RequiredChildObjectValidator errorMessage="${attachmentResources.missingChildAssetsValidator}" objectPath="AttachmentAssetGroup" validatorId="reqChildAssetsValidator" validatorType="reqChildAssetsValidator"/>
+		<!--- Retrieves the {@link cmc/attachment/AttachmentAssetWithFileType AttachmentAssetWithFileType},{@link cmc/attachment/AttachmentDescription AttachmentDescription} and
+			{@link cmc/attachment/AttachmentAssetWithURLType AttachmentAssetWithURLType} child objects.  -->
+		<GetChildrenService objectTypes="AttachmentAssetWithFileType,InheritedAttachmentAssetWithFileType,AttachmentAssetWithURLType,AttachmentDescription" url="/cmc/GetAttachmentChildren">
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+			<ServiceParam name="storeId"/>
+		</GetChildrenService>
+		<!-- Refresh Service to reload the properties and description of the attachment -->
+		<RefreshService url="/cmc/GetAttachmentByAttachmentId">
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+			<ServiceParam name="storeId"/>
+		</RefreshService>
+		<CreateService url="/cmc/CreateAttachment">
+			<ServiceParam name="storeId"/>
+		</CreateService>
+		<UpdateService url="/cmc/UpdateAttachment">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="updateAttachmentCondition" enablementValue="Attachment" propertyName="objectType"/>
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="updateInheritedAttachmentCondition" enablementValue="InheritedAttachment" propertyName="objectType"/>
+			</ServiceParam>
+			<ServiceParam name="attachmentId" parameterName="attachmentId" propertyName="attachmentId"/>
+		</UpdateService>
+		<DeleteService url="/cmc/DeleteAttachment">
+			<ServiceParam name="storeId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="deleteAttachmentCondition" enablementValue="Attachment" propertyName="objectType"/>
+			</ServiceParam>
+			<ServiceParam name="objectStoreId" parameterName="storeId" propertyName="objectStoreId">
+				<EnablementCondition checkObjectDefinition="true" conditionId="deleteInheritedAttachmentCondition" enablementValue="InheritedAttachment" propertyName="objectType"/>
+			</ServiceParam>
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+		</DeleteService>
+		<!--- Retrieves the {@link SalesCatalog SalesCatalogs} that refer to this object. -->
+		<GetReferencesService primaryObjectTypes="SalesCatalog,InheritedSalesCatalog" referenceObjectTypes="AttachmentReference,BusinessObjectToInheritedAttachment,InheritedBusinessObjectToInheritedAttachment" url="/cmc/GetSalesCatalogForAttachment">
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+			<ServiceParam name="storeId"/>
+		</GetReferencesService>
+		<!--- Retrieves the {@link cmc/catalog/InheritedCatalogGroup InheritedCatalogGroups},
+			{@link cmc/catalog/CatalogGroup CatalogGroups}, {@link cmc/catalog/SalesCatalogGroup SalesCatalogGroups} and {@link cmc/catalog/DynamicSalesCatalogGroup DynamicSalesCatalogGroup} that refer to this object. -->
+		<GetReferencesService primaryObjectTypes="CatalogGroup,InheritedCatalogGroup,SalesCatalogGroup,DynamicSalesCatalogGroup,InheritedSalesCatalogGroup,InheritedDynamicSalesCatalogGroup" referenceObjectTypes="AttachmentReference,BusinessObjectToInheritedAttachment,InheritedBusinessObjectToInheritedAttachment" url="/cmc/GetCatalogGroupForAttachment">
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+			<ServiceParam name="storeId"/>
+		</GetReferencesService>
+		<!--- Retrieves the {@link cmc/catalog/InheritedKit InheritedKits},
+			{@link cmc/catalog/Kit Kits}, {@link cmc/catalog/PredefinedDKit PDKs}, {@link cmc/catalog/InheritedPredefinedDKit PDKs}, {@link cmc/catalog/InheritedCatalogGroupSKU InheritedSKUs},{@link cmc/catalog/CatalogGroupSKU SKUs},
+			{@link cmc/catalog/InheritedProduct InheritedProducts},{@link cmc/catalog/Product Products},{@link cmc/catalog/Bundle Bundles},
+			{@link cmc/catalog/InheritedBundle InheritedBundles},{@link cmc/catalog/InheritedProductSKU InheritedProductSKUs} and {@link cmc/catalog/ProductSKU ProductSKUs} that refer to this object. -->
+		<GetReferencesService primaryObjectTypes="Product,InheritedProduct,Bundle,InheritedBundle,Kit,InheritedKit,PredefinedDKit,InheritedPredefinedDKit,ProductSKU,InheritedProductSKU,CatalogGroupSKU,InheritedCatalogGroupSKU" referenceObjectTypes="AttachmentReference,BusinessObjectToInheritedAttachment,InheritedBusinessObjectToInheritedAttachment" url="/cmc/GetCatalogEntryForAttachment">
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+			<ServiceParam name="storeId"/>
+		</GetReferencesService>
+		<!--- Retrieves the @link cmc/marketing/InheritedMarketingContent InheritedMarketingContents}
+			and {@link cmc/marketing/MarketingContent MarketingContents} that refer to this object. -->
+		<GetReferencesService primaryObjectTypes="MarketingContent,InheritedMarketingContent" referenceObjectTypes="AttachmentReference,InheritedAttachmentReference" url="/cmc/GetMarketingContentForAttachment">
+			<ServiceParam name="attachmentId" propertyName="attachmentId"/>
+			<ServiceParam name="storeId"/>
+			<ServiceParam parameterName="attachmentReferenceObjectType" value="AttachmentReference">
+				<EnablementCondition checkObjectDefinition="true" conditionId="localAttachment" enablementValue="Attachment" propertyName="objectType"/>
+			</ServiceParam>
+			<ServiceParam parameterName="attachmentReferenceObjectType" value="InheritedAttachmentReference">
+				<EnablementCondition checkObjectDefinition="true" conditionId="inheritedAttachment" enablementValue="Attachment" negate="true" propertyName="objectType"/>
+			</ServiceParam>
+		</GetReferencesService>
+		<!--
+			Child object definition for the description related fields of an attachment.
+			This is object is  language sensitive.
+		-->
+		<ChildObjectDefinition baseDefinition="cmc/attachment/AttachmentDescription"/>
+		<!--
+			Child object definition for the asset with URL type related fields of an attachment.
+		-->
+		<ChildObjectDefinition allowImplicitParentCreate="true" baseDefinition="cmc/attachment/AttachmentAssetWithURLType"/>
+		<PreviewFileClientAction displayName="${attachmentResources.attachment_preview}" externalObjectTypes="AttachmentAssetWithURLType" filenamePropertyName="fileName" languageIdsPropertyName="assetLanguageIds" objectPath="AttachmentAssetGroup" pathPropertyName="path" toolbarIcon="PreviewListToolbarIcon"/>
+	</PrimaryObjectDefinition>
+
+	<PrimaryObjectDefinition baseDefinition="cmc/attachment/BaseAttachmentPrimaryObjectDefinition" creatable="true" definitionName="cmc/attachment/Attachment" headerIcon="AttachmentHeaderIcon" icon="AttachmentIcon" objectType="Attachment">
+		<!--
+			Reference object definition for the asset with file type related fields of an attachment.
+		-->
+		<ReferenceObjectDefinition allowImplicitParentCreate="true" baseDefinition="cmc/attachment/AttachmentAssetWithFileType"/>
+		<ReferenceObjectDefinition allowImplicitParentCreate="true" baseDefinition="cmc/attachment/InheritedAttachmentAssetWithFileType"/>
+	</PrimaryObjectDefinition>
+
+	<PrimaryObjectDefinition baseDefinition="cmc/attachment/BaseAttachmentPrimaryObjectDefinition" compatibleObjectTypes="Attachment" creatable="false" definitionName="cmc/attachment/InheritedAttachment" headerIcon="InheritedAttachmentHeaderIcon" icon="InheritedAttachmentIcon" objectType="InheritedAttachment">
+		<FalseEnablementCondition conditionId="attachmentCondition"/>
+		<!--
+			Reference object definition for the asset with file type related fields of an attachment.
+		-->
+		<ReferenceObjectDefinition allowImplicitParentCreate="true" baseDefinition="cmc/attachment/InheritedAttachmentAssetWithFileType"/>
+	</PrimaryObjectDefinition>
+
+	<ReferenceObjectDefinition definitionName="cmc/attachment/BaseAttachmentAssetWithFileType" displayName="${attachmentResources.attachmentAssetWithFileTypeObjectName}" idProperty="assetId" isBaseDefinition="true" objectGroups="AttachmentAssetGroup,AttachmentAssetWithFileTypeGroup">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<CreateService url="/cmc/CreateAttachmentAssetWithFileType">
+			<ServiceParam name="objectStoreId" objectPath="ManagedFileGroup" propertyName="objectStoreId"/>
+			<ServiceParam name="storeId"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+			<ServiceParam name="assetLanguageIds" optional="true" propertyName="assetLanguageIds"/>
+			<ServiceParam name="path" objectPath="ManagedFileGroup" propertyName="fullPath"/>
+		</CreateService>
+		<UpdateService url="/cmc/UpdateAttachmentAssetWithFileType">
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+			<ServiceParam name="assetId" propertyName="assetId"/>
+			<ServiceParam name="storeId"/>
+		</UpdateService>
+		<DeleteService url="/cmc/DeleteAttachmentAssetWithFileType">
+			<ServiceParam name="assetId" propertyName="assetId"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+			<ServiceParam name="storeId"/>
+		</DeleteService>
+	</ReferenceObjectDefinition>
+
+	<ReferenceObjectDefinition baseDefinition="cmc/attachment/BaseAttachmentAssetWithFileType" definitionName="cmc/attachment/AttachmentAssetWithFileType" objectType="AttachmentAssetWithFileType" referencedType="ManagedFile"/>
+
+	<ReferenceObjectDefinition baseDefinition="cmc/attachment/BaseAttachmentAssetWithFileType" definitionName="cmc/attachment/InheritedAttachmentAssetWithFileType" objectType="InheritedAttachmentAssetWithFileType" referencedType="InheritedManagedFile"/>
+
+	<ChildObjectDefinition definitionName="cmc/attachment/AttachmentAssetWithURLType" displayName="${attachmentResources.attachmentAssetWithURLTypeObjectName}" headerIcon="URLHeaderIcon" icon="URLIcon" idProperty="assetId" objectGroups="AttachmentAssetGroup" objectType="AttachmentAssetWithURLType">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<PreviewFileClientAction displayName="${attachmentResources.attachment_preview}" isExternal="true" pathPropertyName="path" toolbarIcon="PreviewListToolbarIcon"/>
+		<PropertyDefinition displayName="${attachmentResources.attachmentAsset_path}" maximumSize="254" propertyName="path" punchOutEditDialogQuestion="${attachmentResources.cmsPunchOutQuestion}" punchOutEditHelpText="${attachmentResources.cmsPunchOutTooltip}" required="true" type="string">
+			<PunchOutEditService deleteSiblingObjectTypes="AttachmentAssetWithURLType,AttachmentAssetWithFileType,InheritedAttachmentAssetWithFileType" displayName="${attachmentResources.cmsPunchOutSelect}" punchOutEditServiceId="select" url="GetAttachmentPathPunchOutURL">
+				<ServiceParam name="storeId"/>
+				<ServiceParam name="content" propertyName="path"/>
+				<ServiceParam name="punchOutType" value="select"/>
+				<EnablementAndCondition conditionId="selectEnabled">
+					<EnablementCondition conditionId="cmsPunchOutEnabled" contextName="cmsPunchOutEnabled" enablementValue="true"/>
+					<EnablementOrCondition negate="true" baseDefinition="cmc/attachment/ExternalContentEnablementCondition"/>
+				</EnablementAndCondition>
+			</PunchOutEditService>
+			<PunchOutEditService deleteSiblingObjectTypes="AttachmentAssetWithURLType,AttachmentAssetWithFileType,InheritedAttachmentAssetWithFileType" displayName="${attachmentResources.cmsPunchOutEdit}" punchOutEditServiceId="edit" url="GetAttachmentPathPunchOutURL">
+				<ServiceParam name="storeId"/>
+				<ServiceParam name="content" propertyName="path"/>
+				<ServiceParam name="punchOutType" value="edit"/>
+				<EnablementAndCondition conditionId="editEnabled">
+					<EnablementCondition conditionId="cmsPunchOutEnabled" contextName="cmsPunchOutEnabled" enablementValue="true"/>
+					<EnablementOrCondition negate="true" baseDefinition="cmc/attachment/ExternalContentEnablementCondition"/>
+					<ContentURLEnablementCondition package="cmc/attachment" propertyName="path"/>
+				</EnablementAndCondition>
+			</PunchOutEditService>
+			<ExternalAssetsPunchOutEditService dialogClass="cmc/foundation/WCHAssetsPickerDialog" deleteSiblingObjectTypes="AttachmentAssetWithURLType" punchOutEditServiceId="selectExternal" url="GetAttachmentExternalAssetPickerURL">
+				<ServiceParam name="storeId"/>
+				<EnablementOrCondition baseDefinition="cmc/attachment/ExternalContentEnablementCondition"/>
+			</ExternalAssetsPunchOutEditService>
+			<ContentURLResolver package="cmc/attachment"/>
+		</PropertyDefinition>
+		<CreateService url="/cmc/CreateAttachmentAssetWithURLType">
+			<ServiceParam name="storeId" parentProperty="true" propertyName="objectStoreId"/>
+			<ServiceParam name="path" propertyName="path"/>
+			<ServiceParam name="assetLanguageIds" optional="true" propertyName="assetLanguageIds"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+		</CreateService>
+		<DeleteService url="/cmc/DeleteAttachmentAssetWithURLType">
+			<ServiceParam name="storeId" parentProperty="true" propertyName="objectStoreId"/>
+			<ServiceParam name="assetId" propertyName="assetId"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+		</DeleteService>
+		<UpdateService url="/cmc/UpdateAttachmentAssetWithURLType">
+			<ServiceParam name="storeId" parentProperty="true" propertyName="objectStoreId"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+			<ServiceParam name="assetId" propertyName="assetId"/>
+		</UpdateService>
+	</ChildObjectDefinition>
+
+	<ChildObjectDefinition definitionName="cmc/attachment/AttachmentDescription" idProperty="languageId" languageSensitive="true" objectType="AttachmentDescription" releaseWhenClosed="false">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<!--- The name for the attachment. -->
+		<PropertyDefinition displayName="${attachmentResources.attachmentDescription_Name}" maximumSize="128" propertyName="name" type="string"/>
+		<!--- The short description for the attachment. -->
+		<PropertyDefinition displayName="${attachmentResources.attachmentDescription_ShortDescription}" maximumSize="254" propertyName="sDesc" type="string"/>
+		<!--- The long description for the attachment. -->
+		<PropertyDefinition displayName="${attachmentResources.attachmentDescription_LongDescription}" maximumSize="4000" propertyName="lDesc" type="string"/>
+		<CreateService url="/cmc/CreateAttachmentDescription">
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+			<ServiceParam name="languageId" propertyName="languageId"/>
+		</CreateService>
+		<UpdateService url="/cmc/UpdateAttachmentDescription">
+			<ServiceParam name="objectStoreId" parameterName="storeId" parentProperty="true"/>
+			<ServiceParam name="languageId" propertyName="languageId"/>
+			<ServiceParam name="attachmentId" parentProperty="true"/>
+		</UpdateService>
+	</ChildObjectDefinition>
+
+	<EnablementOrCondition definitionName="cmc/attachment/ExternalContentEnablementCondition" conditionId="externalContentEnabled">
+	    <EnablementCondition
+	        conditionId="externalContentEnablementCondition1"
+	        contextName="externalContentEnablementModeForStore" enablementValue="ENABLED"/>
+	    <EnablementCondition
+	        conditionId="externalContentEnablementCondition2"
+	        contextName="externalContentEnablementModeForStore" enablementValue="COMPATIBILITY"/>
+	</EnablementOrCondition>
+</Definitions>

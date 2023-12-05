@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Definitions>
+	<!--
+
+		This definition contains all list and grid classes for displaying the attachment assets of an attachment.
+		The definitions in this file are:
+
+		cmc/attachment/AttachmentAssetList - ChildListEditor used to navigate the attachment assets of an attachment.
+		cmc/attachment/AttachmentAssetGrid - This definition is used to display a grid containing the attachment assets information for an attachment.
+
+	-->
+	<PropertyChildListEditor definitionName="cmc/attachment/AttachmentAssetList" extendedHelpText="${attachmentResources.extendedHelpText_AttachmentAssets}" helpLinkText="${foundationResources.helpDefaultLinkText}" hideEditColumnAction="true" listDefinition="cmc/attachment/AttachmentAssetGrid" newButtonResource="URLListToolbarIcon" objectTypes="AttachmentAssetWithFileType,AttachmentAssetWithURLType,InheritedAttachmentAssetWithFileType" promptText="${attachmentResources.attachmentAssetList_labelText}">
+		<dependency localName="foundationResources" moduleName="cmc/foundation/FoundationResources"/>
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+	</PropertyChildListEditor>
+
+	<!---
+		This class displays the contents and characteristics of a list of {@link cmc/attachment/AttachmentAssetWithFileType AttachmentAssetsWithFileType},
+		{@link cmc/attachment/InheritedAttachmentAssetWithFileType InheritedAttachmentAssetsWithFileType} and {@link cmc/attachment/AttachmentAssetWithURLType AttachmentAssetsWithURLType}.
+	-->
+	<ObjectGrid definitionName="cmc/attachment/AttachmentAssetGrid">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<GridIconTypeImage editable="false" name="type" propertyName="" required="true" text="${attachmentResources.attachmentAsset_TypeIcon}" width="90"/>
+		<GridText editable="true" name="assetPath" required="true" text="${attachmentResources.attachmentAsset_path}" width="264">
+			<GridCellDescriptor name="fileCell" objectPath="ManagedFileGroup" objectType="AttachmentAssetWithFileTypeGroup" propertyName="fullPath"/>
+			<GridCellDescriptor name="urlCell" objectType="AttachmentAssetWithURLType" propertyName="path"/>
+		</GridText>
+		<GridText editable="false" name="mimeType" objectPath="ManagedFileGroup" propertyName="mimeType" text="${attachmentResources.attachmentAsset_mimeType}" visible="false" width="90"/>
+		<!-- The column language indicates the language current attachment asset belongs to. -->
+		<GridLanguages alignment="center" name="language" propertyName="assetLanguageIds" text="${attachmentResources.attachmentAsset_language}" width="150"/>
+	</ObjectGrid>
+</Definitions>

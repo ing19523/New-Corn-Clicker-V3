@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Definitions>
+	<ObjectTypeFilter definitionName="cmc/attachment/AttachmentResourceFilter" displayName="${attachmentResources.attachmentFilter}" filterType="AttachmentResourceFilter" objectTypes="AttachmentResourceAttachmentType">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+	</ObjectTypeFilter>
+
+	<ObjectTypeFilter definitionName="cmc/attachment/ManagedContentsFilter" displayName="${attachmentResources.managedContentsFilter}" filterType="ManagedContentsFilter" objectTypes="ChildInheritedManagedDirectory,ChildManagedDirectory,InheritedManagedDirectory,ManagedDirectory">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+	</ObjectTypeFilter>
+</Definitions>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Definitions>
+    <PrimaryObjectDefinition browseFilterType="ManagedContentsFilter"
+        copyProtected="true" creatable="false"
+        definitionName="cmc/attachment/BaseManagedFilePrimaryObjectDefinition"
+        displayName="${attachmentResources.managedFileObjectName}"
+        displayNameProperty="fileName" fileNamePropertyName="fileName"
+        fileSizePropertyName="fileSize"
+        helpLink="tasks/tttmanagingfiles.htm" idProperty="fullPath"
+        isBaseDefinition="true" isFileObject="true"
+        longDisplayNameProperty="fullPath" maximumFileSize="10485760"
+        newDisplayName="${attachmentResources.attachment_newManagedFileDisplayName}"
+        newObjectMenuItemText="${attachmentResources.contextMenuNewFile}"
+        objectGroups="ManagedFileGroup"
+        propertiesDefinition="cmc/attachment/ManagedFileProperties"
+        searchType="FindManagedFile" writeUsage="IBM_ManageAttachmentTool">
+        <dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+        <!--- The property of file name-->
+        <PropertyDefinition
+            displayName="${attachmentResources.managedFile_fileName}"
+            maximumSize="254" propertyName="fileName" required="true" type="string"/>
+        <PreviewFileClientAction
+            displayName="${attachmentResources.attachment_preview}"
+            filenamePropertyName="fileName" pathPropertyName="path" toolbarIcon="PreviewListToolbarIcon"/>
+        <Xml name="template">
+            <fileSize readonly="true"/>
+        </Xml>
+        <!--- Retrieves the {@link cmc/attachment/ManagedDirectory ManagedDirectory} object that refers to this object. -->
+        <GetReferencesService url="/cmc/GetParentDirectoryForManagedFile">
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="fullPath" propertyName="fullPath"/>
+        </GetReferencesService>
+        <DeleteService url="/cmc/DeleteManagedFile">
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="managedFileId" optional="true" propertyName="managedFileId"/>
+            <ServiceParam name="fileName" optional="true" propertyName="fileName"/>
+            <ServiceParam name="path" optional="true" propertyName="path"/>
+        </DeleteService>
+        <!--- Retrieves the {@link cmc/attachment/Attachment Attachments} and {@link cmc/attachment/InheritedAttachment InheritedAttachments} that refer to this object. -->
+        <GetReferencesService
+            primaryObjectTypes="Attachment,InheritedAttachment"
+            referenceObjectTypes="AttachmentAssetWithFileType,InheritedAttachmentAssetWithFileType" url="/cmc/GetAttachmentsByManagedFile">
+            <ServiceParam name="fullPath" propertyName="fullPath"/>
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="objectStoreId" propertyName="objectStoreId"/>
+            <ServiceParam name="defaultLanguageId"/>
+        </GetReferencesService>
+        <CreateService url="/cmc/AttachmentFileUpload">
+            <ServiceParam name="storeId"/>
+            <ServiceParam name="fileName" propertyName="fileName"/>
+            <ServiceParam name="parentDirectoryParentPath"
+                optional="true" parentProperty="true" propertyName="parentPath"/>
+            <ServiceParam name="parentDirectoryName"
+                parentProperty="true" propertyName="displayName"/>
+            <ServiceParam name="fileSize" propertyName="fileSize"/>
+            <ServiceParam name="operationType" value="Create"/>
+        </CreateService>
+        <UpdateService url="/cmc/AttachmentFileUpload">
+            <ServiceParam name="storeId">
+                <EnablementCondition checkObjectDefinition="true"
+                    conditionId="updateManagedFileCondition"
+                    enablementValue="ManagedFile" propertyName="objectType"/>
+            </ServiceParam>
+            <ServiceParam name="objectStoreId" parameterName="storeId" propertyName="objectStoreId">
+                <EnablementCondition checkObjectDefinition="true"
+                    conditionId="updateInheritedManagedFileCondition"
+                    enablementValue="InheritedManagedFile" propertyName="objectType"/>
+            </ServiceParam>
+            <ServiceParam name="fileName" propertyName="fileName"/>
+            <ServiceParam name="fileParentDirectoryParentPath"
+                optional="true"
+                parameterName="parentDirectoryParentPath" propertyName="parentDirectoryParentPath"/>
+            <ServiceParam name="fileParentDirectoryName" optional="true"
+                parameterName="parentDirectoryName" propertyName="parentDirectoryName"/>
+            <ServiceParam name="fileSize" propertyName="fileSize"/>
+            <ServiceParam name="operationType" value="Update"/>
+        </UpdateService>
+        <!--- All file types -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_all}"
+            extension="*.*" name="allFileTypesFilter"/>
+        <!--- Supported image image types: jpg, gif, jpe, jpeg -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_images}"
+            extension="*.jpg;*.gif;*.jpe;*.jpeg;*.png" name="imageTypesFilter"/>
+        <!--- Supported document types: doc, ppt, pdf, ps, text, txt -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_documents}"
+            extension="*.doc;*.pdf;*.ps;*.text;*.txt" name="documentTypesFilter"/>
+        <!--- Supported image media types: ra, swf, wav, mpg, mpeg, mov, avi, qt -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_media}"
+            extension="*.ra;*.swf;*.wav;*.mpg;*.mpeg;*.mov;*.avi;*.qt" name="mediaTypesFilter"/>
+        <!--- Supported archieved types: gz, zip, gtar, tar, jar -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_packaged}"
+            extension="*.gz;*.zip;*.gtar;*.tar;*.jar;*.rpm" name="archievedTypesFilter"/>
+        <!--- Supported presentation types: ppt -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_presentation}"
+            extension="*.ppt" name="presentationTypesFilter"/>
+        <!--- Supported spreadsheet types: xls -->
+        <FileTypes
+            description="${attachmentResources.fileTypesDescription_spreadSheet}"
+            extension="*.xls" name="spreadsheetTypesFilter"/>
+        <!-- Validator to check and pass the warning message when there is no parent specified for the file. -->
+        <RequiredParentValidator
+            errorMessage="${attachmentResources.missingParentDirectoryValidator}"
+            validatorId="parentDirectoryExistsCheck" validatorType="requiredParentDirectoryValidator"/>
+    </PrimaryObjectDefinition>
+    <PrimaryObjectDefinition
+        baseDefinition="cmc/attachment/BaseManagedFilePrimaryObjectDefinition"
+        compatibleObjectTypes="ManagedFile" creatable="false"
+        definitionName="cmc/attachment/InheritedManagedFile"
+        headerIcon="InheritedManagedFileHeaderIcon"
+        icon="InheritedManagedFileIcon" objectType="InheritedManagedFile">
+        <FalseEnablementCondition conditionId="managedFileCondition"/>
+    </PrimaryObjectDefinition>
+    <PrimaryObjectDefinition
+        baseDefinition="cmc/attachment/BaseManagedFilePrimaryObjectDefinition"
+        creatable="true" definitionName="cmc/attachment/ManagedFile"
+        headerIcon="ManagedFileHeaderIcon" icon="ManagedFileIcon" objectType="ManagedFile">
+        <EnablementAndCondition conditionId="createFileCondition">
+            <EnablementCondition
+                conditionId="externalContentEnablementCondition"
+                contextName="externalContentEnablementModeForStore"
+                enablementValue="ENABLED" negate="true"/>
+            <EnablementCondition conditionId="createFileEnabled"
+                contextName="createFileEnabled" enablementValue="true"/>
+        </EnablementAndCondition>
+    </PrimaryObjectDefinition>
+</Definitions>

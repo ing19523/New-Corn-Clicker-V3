@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="/DeleteManagedDirectory" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="ManagedDirectory"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Process"/>
+		<property name="actionCode" value="Delete"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.ManagedDirectoryFacadeClient"/>
+		<property name="clientLibraryMethod" value="processManagedDirectory"/>
+	</bean>
+	<bean id="/CreateManagedDirectory" class="com.ibm.commerce.content.facade.client.servlet.spring.CreateManagedDirectoryController">
+		<property name="urlObject" value="ManagedDirectory"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Process"/>
+		<property name="actionCode" value="Add"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.ManagedDirectoryFacadeClient"/>
+		<property name="clientLibraryMethod" value="processManagedDirectory"/>
+		<property name="var" value="managedDirectories"/>
+		<property name="successView" value="/jsp/commerce/attachment/restricted/RespondCreateManagedDirectory.jsp"/>
+	</bean>
+	<bean id="/DeleteManagedFile" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="ManagedFile"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Process"/>
+		<property name="actionCode" value="Delete"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.ManagedFileFacadeClient"/>
+		<property name="clientLibraryMethod" value="processManagedFile"/>
+	</bean>
+	<bean id="/CreateAttachment" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="Attachment"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Process"/>
+		<property name="actionCode" value="Add"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="processAttachment"/>
+	</bean>
+	<bean id="/CreateAttachmentAssetWithURLType" class="com.ibm.commerce.content.facade.client.servlet.spring.CreateAttachmentAssetWithURLTypeController">
+		<property name="urlObject" value="AttachmentAssetWithURLType"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Add"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/CreateAttachmentAssetWithFileType" class="com.ibm.commerce.content.facade.client.servlet.spring.CreateAttachmentAssetWithFileTypeController">
+		<property name="urlObject" value="AttachmentAssetWithFileType"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Add"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+		<property name="var" value="attachments"/>
+		<property name="successView" value="/jsp/commerce/attachment/restricted/RespondCreateAttachmentAssetWithFileType.jsp"/>
+	</bean>
+	<bean id="/CreateAttachmentDescription" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="AttachmentDescription"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Add"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/UpdateAttachment" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="Attachment"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/UpdateAttachmentAssetWithFileType" class="com.ibm.commerce.content.facade.client.servlet.spring.UpdateAttachmentAssetController">
+		<property name="urlObject" value="AttachmentAssetWithFileType"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/UpdateAttachmentAssetWithURLType" class="com.ibm.commerce.content.facade.client.servlet.spring.UpdateAttachmentAssetController">
+		<property name="urlObject" value="AttachmentAssetWithURLType"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/UpdateAttachmentDescription" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="AttachmentDescription"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/DeleteAttachment" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="Attachment"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Process"/>
+		<property name="actionCode" value="Delete"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="processAttachment"/>
+	</bean>
+	<bean id="/DeleteAttachmentAssetWithURLType" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="AttachmentAssetWithURLType"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Delete"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/DeleteAttachmentAssetWithFileType" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="AttachmentAssetWithFileType"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="actionCode" value="Delete"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.content.facade.datatypes.ContentFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.content.facade.client.AttachmentFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeAttachment"/>
+	</bean>
+	<bean id="/GetCMSPunchOutEnablementForStore" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetCMSPunchOutEnablementForStore.jsp"/>
+	</bean>
+	<bean id="/GetRootManagedDirectory" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetRootManagedDirectory.jsp"/>
+	</bean>
+	<bean id="/GetManagedDirectoryChildren" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetManagedDirectoryChildren.jsp"/>
+	</bean>
+	<bean id="/GetManagedDirectoryChildren-ManagedFile" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetManagedDirectoryChildren-ManagedFile.jsp"/>
+	</bean>
+	<bean id="/GetCatalogGroupForAttachment" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetCatalogGroupForAttachment.jsp"/>
+	</bean>
+	<bean id="/GetSalesCatalogForAttachment" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetSalesCatalogForAttachment.jsp"/>
+	</bean>
+	<bean id="/GetCatalogEntryForAttachment" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetCatalogEntryForAttachment.jsp"/>
+	</bean>
+	<bean id="/GetMarketingContentForAttachment" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetMarketingContentForAttachment.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentsForStore" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetAttachmentsForStore.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentByAttachmentId" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetAttachmentByAttachmentId.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentChildren" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetAttachmentChildren.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentsByManagedFile" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetAttachmentsByManagedFile.jsp"/>
+	</bean>
+	<bean id="/GetParentDirectoryForManagedFile" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetParentDirectoryForManagedFile.jsp"/>
+	</bean>
+	<bean id="/FindManagedFile" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/FindManagedFile.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentReferencesForCatalog" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/catalog/restricted/GetAttachmentReferencesForCatalog.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentReferencesForCatalogGroup" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/catalog/restricted/GetAttachmentReferencesForCatalogGroup.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentReferencesForCatalogEntry" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/catalog/restricted/GetAttachmentReferencesForCatalogEntry.jsp"/>
+	</bean>
+	<bean id="/GetAvailableAttachmentReferenceUsages" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/catalog/restricted/GetAllUsages.jsp"/>
+	</bean>
+	<bean id="/FindAttachments" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/FindAttachments.jsp"/>
+	</bean>
+	<bean id="/CreateCatalogAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalog"/>
+		<property name="actionCode" value="Add"/>
+	</bean>
+	<bean id="/CreateCatalogEntryAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogEntryAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalogEntry"/>
+		<property name="actionCode" value="Add"/>
+	</bean>
+	<bean id="/CreateCatalogGroupAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogGroupAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalogGroup"/>
+		<property name="actionCode" value="Add"/>
+	</bean>
+	<bean id="/UpdateCatalogAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalog"/>
+		<property name="actionCode" value="Change"/>
+	</bean>
+	<bean id="/UpdateCatalogEntryAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogEntryAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalogEntry"/>
+		<property name="actionCode" value="Change"/>
+	</bean>
+	<bean id="/UpdateCatalogGroupAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogGroupAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalogGroup"/>
+		<property name="actionCode" value="Change"/>
+	</bean>
+	<bean id="/DeleteCatalogAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalog"/>
+		<property name="actionCode" value="Delete"/>
+	</bean>
+	<bean id="/DeleteCatalogEntryAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogEntryAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalogEntry"/>
+		<property name="actionCode" value="Delete"/>
+	</bean>
+	<bean id="/DeleteCatalogGroupAttachmentReference" class="com.ibm.commerce.foundation.client.facade.bod.servlet.spring.BusinessObjectDocumentController">
+		<property name="urlObject" value="CatalogGroupAttachmentReference"/>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="verb" value="Change"/>
+		<property name="documentRootFactory" value="com.ibm.commerce.catalog.facade.datatypes.CatalogFactory"/>
+		<property name="clientLibrary" value="com.ibm.commerce.catalog.facade.client.CatalogFacadeClient"/>
+		<property name="clientLibraryMethod" value="changeCatalogGroup"/>
+		<property name="actionCode" value="Delete"/>
+	</bean>
+	<bean id="/AttachmentFileUpload" class="com.ibm.commerce.foundation.internal.client.lobtools.controllers.ControllerCommandController">
+		<property name="commandInterface" value="AttachmentUpload"/>
+		<property name="defaultParameters">
+			<props>
+				<prop key="isCMC">true</prop>
+				<prop key="url">RespondFileUpload.jsp</prop>
+			</props>
+		</property>
+		<property name="contextParameters">
+			<props>
+				<prop key="storeId">storeId</prop>
+			</props>
+		</property>
+		<property name="successView" value="/jsp/commerce/attachment/restricted/RespondFileUpload.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentPathPunchOutURL" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetAttachmentPathPunchOutURL.jsp"/>
+	</bean>
+	<bean id="/SetAttachmentPathPunchOutReturnValue" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/SetAttachmentPathPunchOutReturnValue.jsp"/>
+	</bean>
+	<bean id="/GetAttachmentExternalAssetPickerURL" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="/jsp/commerce/attachment/restricted/GetAttachmentExternalAssetPickerURL.jsp"/>
+	</bean>
+</beans>

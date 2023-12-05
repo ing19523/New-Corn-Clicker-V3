@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Definitions>
+	<!---
+		This search is used to find {@link  cmc/attachment/ManagedFile ManagedFile}. The search retrieves objects that match the search term.
+		The search term text is compared with the values of the following properties:
+		<ul>
+		<li>path
+		</ul>
+	-->
+	<SearchDefinition definitionName="cmc/attachment/FindManagedFile" displayName="${attachmentResources.findAllFilesSearchDefinition_DisplayName}" headerText="${attachmentResources.file_headerText}" icon="ManagedFileIcon" listDefinition="cmc/attachment/ManagedFileSearchGrid" listTitle="${attachmentResources.fileListTitle}" objectTypeDisplayName="${attachmentResources.managedFileObjectName}" searchType="FindManagedFile" tooltip="${attachmentResources.searchFilesTooltip}">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<SearchService name="findManagedFile" url="/cmc/FindManagedFile">
+			<ServiceParam name="storeId"/>
+		</SearchService>
+	</SearchDefinition>
+</Definitions>

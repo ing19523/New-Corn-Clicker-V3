@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<Definitions>
+	<BusinessObjectEditor definitionName="cmc/attachment/AttachmentManagement" displayName="${shellResources.attachmentManagementDisplayName}" gettingStartedPageClass="cmc/attachment/AttachmentGettingStartedPage" helpLink="concepts/cttattachmentstool.html">
+		<dependency localName="shellResources" moduleName="cmc/shell/ShellResources"/>
+		<!-- Filter definitions -->
+		<ObjectTypeFilter baseDefinition="cmc/attachment/ManagedContentsFilter" isDefault="true"/>
+		<ObjectTypeFilter baseDefinition="cmc/attachment/AttachmentResourceFilter"/>
+		<!-- Top object definitions -->
+		<TopObjectDefinition baseDefinition="cmc/attachment/AttachmentTopObjectDefinition"/>
+		<!-- Organizational Object definitions -->
+		<OrganizationalObjectDefinition baseDefinition="cmc/attachment/AttachmentResourceAttachmentType"/>
+		<PrimaryObjectDefinition baseDefinition="cmc/attachment/Attachment"/>
+		<PrimaryObjectDefinition baseDefinition="cmc/attachment/ManagedFile"/>
+		<PrimaryObjectDefinition baseDefinition="cmc/attachment/ManagedDirectory"/>
+		<PrimaryObjectDefinition baseDefinition="cmc/attachment/InheritedAttachment"/>
+		<PrimaryObjectDefinition baseDefinition="cmc/attachment/InheritedManagedFile"/>
+		<PrimaryObjectDefinition baseDefinition="cmc/attachment/InheritedManagedDirectory"/>
+		<!-- Search definitions -->
+		<SearchDefinition baseDefinition="cmc/attachment/FindAttachments"/>
+		<SearchDefinition baseDefinition="cmc/attachment/FindManagedFile" isDefault="true"/>
+	</BusinessObjectEditor>
+</Definitions>

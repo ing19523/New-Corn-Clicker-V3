@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Definitions>
+	<ChildListEditor definitionName="cmc/attachment/ManagedFileList" listDefinition="cmc/attachment/ManagedFileGrid" objectTypes="ChildManagedFile,ChildInheritedManagedFile"/>
+
+	<!---
+		This definition displays the contents and characteristics of a list of {@link cmc/attachment/ManagedFile ManagedFiles}, and {@link cmc/attachment/InheritedManagedFile InheritedManagedFiles}.
+	-->
+	<ObjectGrid definitionName="cmc/attachment/ManagedFileGrid" preferenceKey="attManagedFileGrid">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<GridIconTypeImage name="type" propertyName="" required="true" text="${attachmentResources.managedFile_typeIcon}" visible="true" width="60"/>
+		<GridStoreName name="store" objectPath="ManagedFileGroup" propertyName="objectStoreId" text="${attachmentResources.store}" width="125"/>
+		<GridText editable="false" name="uniqueID" objectPath="ManagedFileGroup" propertyName="managedFileId" text="${attachmentResources.uniqueId}" visible="false" width="90"/>
+		<GridText editable="false" name="managedFileName" objectPath="ManagedFileGroup" propertyName="fileName" required="true" text="${attachmentResources.managedFile_fileName}" visible="true" width="230"/>
+		<GridText editable="false" name="managedFilePath" objectPath="ManagedFileGroup" propertyName="path" text="${attachmentResources.managedFile_filePath}" visible="true" width="457"/>
+		<GridKilobytes editable="false" name="managedFileSize" objectPath="ManagedFileGroup" propertyName="fileSize" text="${attachmentResources.managedFile_fileSize}" visible="true" width="60"/>
+		<GridText editable="false" name="managedFilemimeType" objectPath="ManagedFileGroup" propertyName="mimeType" text="${attachmentResources.attachmentAsset_mimeType}" visible="false" width="90"/>
+	</ObjectGrid>
+</Definitions>

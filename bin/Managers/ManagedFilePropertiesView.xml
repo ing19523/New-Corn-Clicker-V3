@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Definitions>
+	<PropertyPane definitionName="cmc/attachment/ManagedFilePropertiesPane">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<PropertyGroup baseDefinition="cmc/foundation/PropertyAssetInformationGroup" name="assetGroup"/>
+		<PropertyGroup groupTitle="${attachmentResources.managedFile_fileInformation}" hideHeaderWhenOnlyGroup="true" name="group" open="true">
+			<!--- File Upload widget to browse and select a file from local system  -->
+			<PropertyFileUploader extendedHelpText="${attachmentResources.extendedHelpText_selectFile}" name="sourcePath" promptText="${attachmentResources.managedFile_sourcePath}" required="true"/>
+			<!--- An input field for file name -->
+			<PropertyInputText extendedHelpText="${attachmentResources.extendedHelpText_fileName}" name="fileName" promptText="${attachmentResources.managedFile_fileName}" propertyName="fileName" required="true"/>
+			<!--- An input field for file size. It is read-only. -->
+			<PropertyKilobyte name="fileSize" promptText="${attachmentResources.managedFile_size}" propertyName="fileSize"/>
+			<!--- If you are creating a new file, then a reference editor is shown; if you are updating file content, then a read-only input field is shown. -->
+			<PropertyGroup collapsable="false" dividerAtBottom="false" name="pathGroup1">
+				<EnablementCondition checkNewObject="true" conditionId="newFileObjectCondition" enablementValue="true"/>
+				<!--- An editor to manage the parent category of a product -->
+				<ReferenceEditor allowCreate="true" extendedHelpText="${attachmentResources.extendedHelpText_filePath}" headerText="${attachmentResources.managedFile_filePath}" minWidth="460" name="parentDirectoryRefEditor" parentObjectTypes="ManagedDirectory" promptText="${attachmentResources.managedFile_filePath}" referenceObjectTypes="ChildManagedFile" required="true" validatorTypes="requiredParentDirectoryValidator"/>
+			</PropertyGroup>
+			<PropertyGroup collapsable="false" dividerAtBottom="false" name="pathGroup2">
+				<EnablementCondition checkNewObject="true" conditionId="existingFileObjectCondition" enablementValue="false"/>
+				<PropertyInputText enabled="false" extendedHelpText="${attachmentResources.extendedHelpText_existingFilePath}" name="parentDirectoryField" parentProperty="true" parentType="ManagedDirectoryGroup" promptText="${attachmentResources.managedFile_filePath}" propertyName="fullPath" required="true"/>
+			</PropertyGroup>
+		</PropertyGroup>
+	</PropertyPane>
+
+	<PropertyPane definitionName="cmc/attachment/ManagedFileReferencePane">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<PropertyGroup collapsable="true" groupTitle="${attachmentResources.managedFile_attachedAttachment}" name="assignedToAttachmentReferenceGroup" open="true">
+			<!---  This reference list is used to show a list of {@link cmc/attachment/Attachment Attachment} and {@link cmc/attachment/InheritedAttachment InheritedAttachment}
+				which are associated with {@link cmc/attachment/ManagedFile ManagedFile}.
+			-->
+			<PropertyReferenceList listDefinition="cmc/attachment/AssignedToAttachmentGrid" name="assignedToAttachmentReferenceList" referenceObjectPaths="AttachmentGroup/AttachmentAssetGroup"/>
+		</PropertyGroup>
+		<PropertyGroup collapsable="true" groupTitle="${attachmentResources.managedFile_attachedSalesCatalog}" name="assignedToCatalogReferenceGroup">
+			<!---  This reference list is used to show a list of  {@link cmc/catalog/SalesCatalog SalesCatalog}
+				which are associated with {@link cmc/attachment/ManagedFile ManagedFile}.
+			-->
+			<PropertyReferenceList listDefinition="cmc/attachment/AssignedToCatalogGrid" name="assignedToCatalogReferenceList" referenceObjectPaths="SalesCatalog/AttachmentReferenceGroup/AttachmentGroup/AttachmentAssetGroup"/>
+		</PropertyGroup>
+		<PropertyGroup collapsable="true" groupTitle="${attachmentResources.managedFile_attachedCategory}" name="assignedToCategoryReferenceGroup">
+			<!---  This reference list is used to show a list of  {@link cmc/catalog/InheritedCatalogGroup InheritedCatalogGroup},
+				{@link cmc/catalog/CatalogGroup CatalogGroup} and {@link cmc/catalog/SalesCatalogGroup SalesCatalogGroup}
+				which are associated with {@link cmc/attachment/ManagedFile ManagedFile}.
+			-->
+			<PropertyReferenceList listDefinition="cmc/attachment/AssignedToCategoryGrid" name="assignedToCategoryReferenceList" referenceObjectPaths="CatalogGroupAlias/AttachmentReferenceGroup/AttachmentGroup/AttachmentAssetGroup"/>
+		</PropertyGroup>
+		<PropertyGroup collapsable="true" groupTitle="${attachmentResources.managedFile_attachedCatentry}" name="assignedToCatalogEntryReferenceGroup">
+			<!---  
+				This reference list is used to show a list of  {@link cmc/catalog/InheritedKit InheritedKit},
+				{@link cmc/catalog/Kit Kit}, {@link cmc/catalog/InheritedCatalogGroupSKU InheritedSKU},{@link cmc/catalog/CatalogGroupSKU SKU},
+				{@link cmc/catalog/InheritedProduct InheritedProduct},{@link cmc/catalog/Product Product},{@link cmc/catalog/Bundle Bundle},
+				{@link cmc/catalog/InheritedBundle InheritedBundle},{@link cmc/catalog/InheritedProductSKU InheritedProductSKU} and {@link cmc/catalog/ProductSKU ProductSKU}
+				which are associated with {@link cmc/attachment/ManagedFile ManagedFile}.
+			-->
+			<PropertyReferenceList listDefinition="cmc/attachment/AssignedToCatalogEntryGrid" name="assignedToCatalogEntryReferenceList" referenceObjectPaths="CatalogEntry/AttachmentReferenceGroup/AttachmentGroup/AttachmentAssetGroup"/>
+		</PropertyGroup>
+		<PropertyGroup collapsable="true" groupTitle="${attachmentResources.managedFile_attachedContent}" name="assignedToMarketingContentReferenceGroup">
+			<!---  
+				This reference list is used to show a list of  {@link cmc/marketing/InheritedMarketingContent InheritedMarketingContent}
+				and {@link cmc/marketing/MarketingContent MarketingContent} which are associated with {@link cmc/attachment/ManagedFile ManagedFile}.
+			-->
+			<PropertyReferenceList listDefinition="cmc/attachment/AssignedToMarketingContentGrid" name="assignedToMarketingContentReferenceList" referenceObjectPaths="MarketingContentGroup/ChildAttachment/AttachmentGroup/AttachmentAssetGroup"/>
+		</PropertyGroup>
+	</PropertyPane>
+
+	<ObjectProperties definitionName="cmc/attachment/ManagedFileProperties">
+		<dependency localName="attachmentResources" moduleName="cmc/attachment/AttachmentResources"/>
+		<PropertyTabs name="tabs">
+			<PropertyTabPane name="managedFilePropertiesTab" text="${attachmentResources.managedFile_properties}">
+				<PropertyPane baseDefinition="cmc/attachment/ManagedFilePropertiesPane"/>
+			</PropertyTabPane>
+			<PropertyTabPane name="managedFileReferenceTab" text="${attachmentResources.managedFile_references}">
+				<PropertyPane baseDefinition="cmc/attachment/ManagedFileReferencePane"/>
+			</PropertyTabPane>
+		</PropertyTabs>
+	</ObjectProperties>
+</Definitions>
